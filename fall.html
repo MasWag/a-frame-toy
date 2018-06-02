@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Fall</title>
+    <script src="aframe-master.min.js"></script>
+    <script>
+      var filled = [0,0,0,0,0,0,0,0,0];
+      function addBox(color, from, to) {
+      var scene = document.querySelector('a-scene');
+      var box = document.createElement('a-box');
+      box.setAttribute('color', color);
+      box.setAttribute('position', from);
+      var animation = document.createElement('a-animation');
+      animation.setAttribute('attribute', 'position');
+      animation.setAttribute('from', from); //'3 10 -3'
+      animation.setAttribute('to', to); //'3 0.5 -3'
+      animation.setAttribute('direction', 'normal');
+      animation.setAttribute('dur', '4000');
+      animation.setAttribute('repeat', '0');
+      animation.setAttribute('easing', 'ease');
+      scene.appendChild(box);
+      box.appendChild(animation);
+      }
+      var isOdd = false;
+      function addRandom() {
+      index = Math.floor(Math.random() * 9);
+      addBox((isOdd ? "#FF9500" : "#0095DD"), '' + (index-4) + ' 10 -3', '' + (index-4) + ' ' + (filled[index] + 0.5) + ' -3');
+      filled[index] += 1;
+      isOdd = !isOdd;
+      }
+
+      StartTimer = function() {
+      timerID = setInterval(addRandom, 4000);
+      };
+      StartTimer();
+      addRandom();
+    </script>
+  </head>
+  <body>
+    <a-scene>
+      <a-sky color="#DDDDDD"></a-sky>
+      <a-image src="./mm-011.jpg" position="0 0 0" rotation="90 0 180" width="10" height="10"></a-image>
+    </a-scene>
+  </body>
+</html>
